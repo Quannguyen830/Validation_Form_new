@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@100&family=Oswald:wght@300&display=swap');
+
+        body{
+            width: 100vw;
+            height: 150vh;
+            overflow-x: hidden;
+            display: grid;
+            place-items: center;
+            background-color: rgb(201, 190, 190);
+        }
+
+        .container{
+            width: 35%;
+            height: fit-content;
+            margin: 20px;
+            background-color: white ;
+            display: block;
+            /* flex-direction: column; */
+            padding: 20px 10px;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .title{
+            /* display: block; */
+            /* align-items: center; */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+            /* justify-content: center; */
+        }
+
+        h3{
+            color: rgb(170, 170, 170);
+            letter-spacing: 2px;
+        }
+        .form{
+            padding: 0 40px;
+        }
+        .form input{
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid black;
+            margin: 0;
+            font-size: 16px;
+        }
+        .form input:focus{
+            outline: none;
+            /* border-bottom: red !important; */
+        }
+        span{
+            margin-top: 15px;
+        }
+        .form .info{
+            margin: 0;
+            margin-top: 40px;
+            margin-bottom: 7px;
+        }
+        .button{
+            display: flex;
+            margin: 20px;
+            /* width: 100px; */
+            height: 100px;
+            justify-content: center;
+            align-items: center;
+            padding: 0 25px;
+        }
+        button{
+            background-color: rgb(170, 170, 170);
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 2px;
+        }
+        button:hover{
+            background: white;
+            border: 2px solid rgb(170, 170, 170);
+            color: rgb(170, 170, 170);
+            transition: 300ms;
+        }
+        .invalid{
+            border-bottom: 1px solid red;
+            transition: 300ms;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="" method="POST" class="main-form">
+            <div class="title">
+                <h2>Thành viên đăng ký</h2>
+                <h3>Cùng nhau học lập trình miễn phí tại F8</h3>
+            </div>
+            <div class="form">
+                <div class="form-group">
+                    <p class="info">Tên đầy đủ</p>
+                    <input name="name" type="text" id="name" placeholder="VD: Son Dang" >
+                    <span class="form-message"></span>
+                </div>
+                <div class="form-group">
+                    <p class="info">Email</p>
+                    <input name="email" type="text" id="email" placeholder="VD: sondang@gmail.com">
+                    <span class="form-message"></span>
+                </div>
+                <div class="form-group">
+                    <p class="info">Mật khẩu</p>
+                    <input name="password" type="password" id="password" placeholder="Nhập mật khẩu">
+                    <span class="form-message"></span>
+                </div>
+                <div class="form-group">
+                    <p class="info">Nhập lại mật khẩu</p>
+                    <input name="againPassword" type="password" id="againPassword" placeholder="Nhập lại mật khẩu">
+                    <span class="form-message"></span>
+                </div>
+            </div>
+            <div class="button">
+                <button>Đăng kí</button>
+            </div>
+        </form>
+    </div>
+    <script src="index.js"></script>
+    <script>
+        Validator({
+            form: '.main-form',
+            rules:[
+                Validator.isRequired('#name'),
+                Validator.isRequired('#email'),
+                Validator.isRequired('#password'),
+                Validator.isRequired('#againPassword'),
+                Validator.isEmail('#email'),
+                Validator.minLength('#password', 8),
+                Validator.isConfirmed('#againPassword', function(){
+                    // console.log(document.querySelector('#password').value)
+                    return document.querySelector('#password').value;
+                })
+            ],
+            onSubmit: function(data){
+                console.log(data)
+            }
+        })
+    </script>
+</body>
+</html>
